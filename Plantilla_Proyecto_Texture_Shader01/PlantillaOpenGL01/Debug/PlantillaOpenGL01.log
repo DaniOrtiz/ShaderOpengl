@@ -1,0 +1,65 @@
+﻿Compilación iniciada a las 10/06/2016 5:31:59.
+     1>Proyecto "C:\dev\Plantilla_Proyecto_Texture_Shader01\PlantillaOpenGL01\PlantillaOpenGL01.vcxproj" en el nodo 2 (Build destinos).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\dev\Assimp\include /IC:\dev\opengl\freeglut\include /I"C:\dev\opengl\glew-1.7.0\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt mainShader01.cpp
+         mainShader01.cpp
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(84): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(84): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(85): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(85): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(87): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(87): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(88): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(88): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(90): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(90): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(91): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(91): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(93): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(93): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(94): warning C4244: 'argumento' : conversión de 'int' a 'GLfloat'; posible pérdida de datos
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(94): warning C4305: 'argumento' : truncamiento de 'double' a 'GLfloat'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(109): warning C4101: 'aspectratio' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(191): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(195): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(199): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(203): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(207): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(211): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(215): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(219): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(225): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(229): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(233): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(238): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(242): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(246): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(251): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(255): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(259): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(264): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(268): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(272): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(277): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(281): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(285): warning C4305: '+=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(290): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(294): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(298): warning C4305: '-=' : truncamiento de 'double' a 'float'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(322): warning C4065: la instrucción switch contiene etiquetas 'default' pero no etiquetas 'case'
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(388): warning C4101: 'zLocal' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(388): warning C4101: 'xExtent' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(389): warning C4101: 'loopX' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(388): warning C4101: 'xLocal' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(389): warning C4101: 'loopZ' : variable local sin referencia
+     1>c:\dev\plantilla_proyecto_texture_shader01\plantillaopengl01\mainshader01.cpp(388): warning C4101: 'zExtent' : variable local sin referencia
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\dev\Plantilla_Proyecto_Texture_Shader01\Debug\PlantillaOpenGL01.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\dev\Assimp\lib\x86 /LIBPATH:C:\dev\opengl\freeglut\lib /LIBPATH:"C:\dev\opengl\glew-1.7.0\lib" glew32.lib freeglut.lib assimp.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\dev\Plantilla_Proyecto_Texture_Shader01\Debug\PlantillaOpenGL01.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\dev\Plantilla_Proyecto_Texture_Shader01\Debug\PlantillaOpenGL01.lib" /MACHINE:X86 Debug\glm.obj
+         Debug\glsl.obj
+         Debug\mainShader01.obj
+         PlantillaOpenGL01.vcxproj -> C:\dev\Plantilla_Proyecto_Texture_Shader01\Debug\PlantillaOpenGL01.exe
+     1>Compilación del proyecto terminada "C:\dev\Plantilla_Proyecto_Texture_Shader01\PlantillaOpenGL01\PlantillaOpenGL01.vcxproj" (Build destinos).
+
+Compilación correcta.
+
+Tiempo transcurrido 00:00:02.68

@@ -1,0 +1,10 @@
+Info,  T5652: Load escenario_proyecto01.obj
+Info,  T5652: Found a matching importer for this file format
+Info,  T5652: Import root directory is '.\'
+Info,  T5652: Entering post processing pipeline
+Info,  T5652: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T5652: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+Info,  T5652: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T5652: JoinVerticesProcess finished | Verts in: 36386 out: 13343 | ~63.3%
+Info,  T5652: Cache relevant are 2 meshes (15683 faces). Average output ACMR is 0.997003
+Info,  T5652: Leaving post processing pipeline
