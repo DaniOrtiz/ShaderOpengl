@@ -66,6 +66,8 @@ float colorR02[4] = {1.0,1.0,1.0,1.0};
 
 int iheight, iwidth;
 
+//Filtro
+float filtro;
 
 void ejesCoordenada() {
 	
@@ -320,14 +322,15 @@ void Keyboard(unsigned char key, int x, int y){
 
 	
 	// ---------- FILTROS BILINEALES ----------
-	/*
+
 	// activacion
 		case 'o':
+			filtro = 1.0;
 		break;
 	// desactivacion
 		case 'p':
+			filtro = 0.0;
 		break;
-		*/
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
 			piso = 1.0;
@@ -353,7 +356,19 @@ void Keyboard(unsigned char key, int x, int y){
 			colorP[1] = 1;
 			colorP[2] = 1;
 		break;
+		case '7':
+			piso = 0.0;
+		break;
 	
+		case ' ':
+			ambiental = 1.0;	
+			central   = 1.0;	
+			relleno01 = 0.0;	
+			relleno02 = 0.0;
+			piso      = 0.0;
+
+		break;
+
 		default:
 		break;
 	}
@@ -456,6 +471,9 @@ void render(){
 	shader->setUniform4f("relleno01Color",colorR01[0],colorR01[1],colorR01[2],colorR01[3]);
 	shader->setUniform4f("relleno02Color",colorR02[0],colorR02[1],colorR02[2],colorR02[3]);
 	shader->setUniform4f("pisoColor",colorP[0],colorP[1],colorP[2],colorP[3]);
+
+	// Filtro Bilineal
+	shader->setUniform1f("filtroBilineal",filtro);
 
 
 	// Codigo para el mesh	
