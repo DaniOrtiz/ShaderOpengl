@@ -85,6 +85,6 @@ void main(void) {
 	auxPiso      = cPiso * pisoInt * pisoColor;
 	//auxpiso      = cPiso * pisoInt * pisoColor;
 	
-	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02 + auxPiso);
+	cFinal = (auxAmbiental + auxPiso) * (auxCentral + auxRelleno01 + auxRelleno02);
 	gl_FragColor = cFinal ;
 }
