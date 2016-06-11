@@ -48,7 +48,7 @@ unsigned char* imagerelleno02 = NULL;
 //Variables para la intensidad de las luces
 //El texture.frag lanza error si coloco GLfloat
 float ambiental = 1.0;	// Valores en los que se pide iniciar el programa
-float central = 1.0;	
+float central   = 1.0;	
 float relleno01 = 0.0;	// Al iniciar no se pueden reducir las luces de relleno (estan apagadas)
 float relleno02  = 0.0;
 
@@ -160,7 +160,7 @@ void init(){
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-   imagerelleno01 = glmReadPPM("baked_flat.ppm", &iwidth, &iheight);
+   imagerelleno01 = glmReadPPM("baked_fill01.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagerelleno01);
 
    // Luz relleno 02
@@ -172,7 +172,7 @@ void init(){
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-   imagerelleno02 = glmReadPPM("baked_fill01.ppm", &iwidth, &iheight);
+   imagerelleno02 = glmReadPPM("baked_fill02.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagerelleno02);
 
    shader = SM.loadfromFile("texture.vert","texture.frag"); // load (and compile, link) from file
@@ -183,142 +183,142 @@ void init(){
 
 
 
-void Keyboard(unsigned char key, int x, int y)
-{
-	// ---------- INTENSIDAD LUCES ----------
-	// incrementa intensidad luz ambiental
-	if (key == '1'){
-		ambiental += 0.05;
-	}
+void Keyboard(unsigned char key, int x, int y){
+	switch (key){
+		case '1':
+			ambiental += 0.05;
+		break;
 	// reduce intensidad luz ambiental
-	if (key == '2'){
-		if (ambiental - 0.05 > 0.0) ambiental -= 0.05;
-	}
+		case '2':
+			if (ambiental - 0.05 > 0.0) ambiental -= 0.05;
+		break;
 	// incrementa intensidad luz relleno 01
-	if (key == 'q'){
-		relleno01 += 0.05;
-	}
+		case 'q':
+			relleno01 += 0.05;
+		break;
 	// reduce intensidad luz relleno 01
-	if (key == 'w'){
-		if (relleno01 - 0.05 > 0.0) relleno01 -= 0.05;
-	}
+		case 'w':
+			if (relleno01 - 0.05 > 0.0) relleno01 -= 0.05;
+		break;
 	// incrementa intensidad luz relleno 02
-	if (key == 'a'){
-		relleno02 += 0.05;
-	}
+		case 'a':
+			relleno02 += 0.05;
+		break;
 	// reduce intensidad luz relleno 02
-	if (key == 's'){
-		if (relleno02 - 0.05 > 0.0) relleno02 -= 0.05;
-	}
+		case 's':
+			if (relleno02 - 0.05 > 0.0) relleno02 -= 0.05;
+		break;
 	// incrementa intensidad luz central
-	if (key == 'z'){
-		central += 0.05;
-	}
+		case 'z':
+			central += 0.05;
+		break;
 	// reduce intensidad luz central
-	if (key == 'x'){
-		if (central - 0.05 > 0.0) central -= 0.05;
-	}
+		case 'x':
+			if (central - 0.05 > 0.0) central -= 0.05;
+		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
 	// componente R
-	if (key == 'e'){
-		colorR01[0] += 0.05;
-	}
+		case 'e':
+			colorR01[0] += 0.05;
+		break;
 	// componente G
-	if (key == 'r'){
-		colorR01[1] += 0.05;
-	}
+		case 'r':
+			colorR01[1] += 0.05;
+		break;
 	// componente B
-	if (key == 't'){
-		colorR01[2] += 0.05;
-	}
+		case 't':
+			colorR01[2] += 0.05;
+		break;
 	// reducciones color luz relleno 01
 	// componente R
-	if (key == 'y'){
-		if (colorR01[0] - 0.05 > 0.0) colorR01[0] -= 0.05;
-	}
+		case 'y':
+			if (colorR01[0] - 0.05 > 0.0) colorR01[0] -= 0.05;
+		break;
 	// componente G
-	if (key == 'u'){
-		if (colorR01[1] - 0.05 > 0.0) colorR01[1] -= 0.05;
-	}
+		case 'u':
+			if (colorR01[1] - 0.05 > 0.0) colorR01[1] -= 0.05;
+		break;
 	// componente B
-	if (key == 'i'){
-		if (colorR01[2] - 0.05 > 0.0) colorR01[2] -= 0.05;
-	}
+		case 'i':
+			if (colorR01[2] - 0.05 > 0.0) colorR01[2] -= 0.05;
+		break;
 	// incrementos color luz relleno 02
 	// componente R
-	if (key == 'd'){
-		colorR02[0] += 0.05;
-	}
+		case 'd':
+			colorR02[0] += 0.05;
+		break;
 	// componente G
-	if (key == 'f'){
-		colorR02[1] += 0.05;
-	}
+		case 'f':
+			colorR02[1] += 0.05;
+		break;
 	// componente B
-	if (key == 'g'){
-		colorR02[2] += 0.05;
-	}
+		case 'g':
+			colorR02[2] += 0.05;
+		break;
 	// reducciones color luz relleno 02
 	// componente R
-	if (key == 'h'){
-		if (colorR02[0] - 0.05 > 0.0) colorR02[0] -= 0.05;
-	}
+		case 'h':
+			if (colorR02[0] - 0.05 > 0.0) colorR02[0] -= 0.05;
+		break;
 	// componente G
-	if (key == 'j'){
-		if (colorR02[1] - 0.05 > 0.0) colorR02[1] -= 0.05;
-	}
+		case 'j':
+			if (colorR02[1] - 0.05 > 0.0) colorR02[1] -= 0.05;
+		break;
 	// componente B
-	if (key == 'k'){
-		if (colorR02[2] - 0.05 > 0.0) colorR02[2] -= 0.05;
-	}
+		case 'k':
+			if (colorR02[2] - 0.05 > 0.0) colorR02[2] -= 0.05;
+		break;
 	// incrementos color luz central
 	// componente R
-	if (key == 'c'){
-		colorC[0] += 0.05;
-	}
+		case 'c':
+			colorC[0] += 0.05;
+		break;
 	// componente G
-	if (key == 'v'){
-		colorC[1] += 0.05;
-	}
+		case 'v':
+			colorC[1] += 0.05;
+		break;
 	// componente B
-	if (key == 'b'){
-		colorC[2] += 0.05;
-	}
+		case 'b':
+			colorC[2] += 0.05;
+		break;
 	// reducciones color luz central
 	// componente R
-	if (key == 'n'){
-		if (colorC[0] - 0.05 > 0.0) colorC[0] -= 0.05;
-	}
+		case 'n':
+			if (colorC[0] - 0.05 > 0.0) colorC[0] -= 0.05;
+		break;
 	// componente G
-	if (key == 'm'){
-		if (colorC[1] - 0.05 > 0.0) colorC[1] -= 0.05;
-	}
+		case 'm':
+			if (colorC[1] - 0.05 > 0.0) colorC[1] -= 0.05;
+		break;
 	// componente B
-	if (key == ' '){
-		if (colorC[2] - 0.05 > 0.0) colorC[2] -= 0.05;
-	}
+		case ' ':
+			if (colorC[2] - 0.05 > 0.0) colorC[2] -= 0.05;
+		break;
+
+	// ---------- INTENSIDAD LUCES ----------
+	// incrementa intensidad luz ambiental
+	
 	// ---------- FILTROS BILINEALES ----------
 	/*
 	// activacion
-	if (key == 'o'){
-	}
+		case 'o':
+		break;
 	// desactivacion
-	if (key == 'p'){
-	}
+		case 'p':
+		break;
 	// ---------- COLORES PATRON PISO ----------
-	if (key == '3'){
-	}
-	if (key == '4'){
-	}
-	if (key == '5'){
-	}
-	if (key == '6'){
-	}
+		case '3':
+		break;
+		case '4':
+		break;
+		case '5':
+		break;
+		case '6':
+		break;
 	*/
-	switch (key)
-	{
 		default:
-			break;
+		break;
 	}
 
 	glutPostRedisplay();

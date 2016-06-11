@@ -54,12 +54,12 @@ void main(void) {
 	vec4 auxRelleno02;
 
 	cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
-	cCentral = texture2D(stexcentral,gl_TexCoord[0].st);
+	cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
 	cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
 	cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
 
 	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
-	auxCentral = cCentral * centralInt * centralColor;
+	auxCentral   = cCentral * centralInt * centralColor;
 	auxRelleno01 = cRelleno01 * relleno01Int * relleno01Color;
 	auxRelleno02 = cRelleno02 * relleno02Int * relleno02Color;
 	
