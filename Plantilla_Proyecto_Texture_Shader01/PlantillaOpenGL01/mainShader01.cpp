@@ -114,7 +114,7 @@ void changeViewport(int w, int h) {
 	float aspectratio;
 
 	if (h==0) h=1;
-	
+
    glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
@@ -239,7 +239,7 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// reduce intensidad luz central
 		case 'x':
-			if (central - 0.05 > 0.0) central -= 0.05;
+			if (central - 0.05 > 1.0) central -= 0.05;
 		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
