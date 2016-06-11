@@ -9,18 +9,21 @@ uniform sampler2D stexflat;
 uniform sampler2D stexcentral;
 uniform sampler2D stexrelleno01;
 uniform sampler2D stexrelleno02;
+uniform sampler2D stexpiso;
 
 // Intensidad Luces
-uniform float ambientalInt;
-uniform float centralInt;
-uniform float relleno01Int;
-uniform float relleno02Int;
+uniform float _ambientalInt;
+uniform float _centralInt;
+uniform float _relleno01Int;
+uniform float _relleno02Int;
+uniform float _pisoInt;
 
 // Color Luces
 uniform vec4 ambientalColor;
 uniform vec4 centralColor;
 uniform vec4 relleno01Color;
 uniform vec4 relleno02Color;
+uniform vec4 pisoColor;
 
 // Algoritmo Filtro Bilineal
 vec4 texture2D_bilinear( sampler2D tex, vec2 uv )
@@ -48,23 +51,27 @@ void main(void) {
 	vec4 cCentral;
 	vec4 cRelleno01;
 	vec4 cRelleno02;
+	vec4 cPiso;
 	vec4 auxAmbiental;
 	vec4 auxCentral;
 	vec4 auxRelleno01;
 	vec4 auxRelleno02;
+	vec4 auxPiso;
 
 	cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
 	cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
 	cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
 	cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
+	cPiso      = texture2D(stexpiso,gl_TexCoord[0].st);
 
-	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
-	auxCentral   = cCentral * centralInt * centralColor;
-	auxRelleno01 = cRelleno01 * relleno01Int * relleno01Color;
-	auxRelleno02 = cRelleno02 * relleno02Int * relleno02Color;
+	auxAmbiental = cAmbiental * _ambientalInt * ambientalColor;
+	auxCentral   = cCentral * _centralInt * centralColor;
+	auxRelleno01 = cRelleno01 * _relleno01Int * relleno01Color;
+	auxRelleno02 = cRelleno02 * _relleno02Int * relleno02Color;
+	auxpiso      = cPiso * _pisoInt * pisoColor;
 	
-	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02);
-	gl_FragColor = cFinal;
+	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02 + auxpiso);
+	gl_FragColor = cFinal ;
 
 	// filtro bilinear
 	// gl_FragColor = texture2D_bilinear( colorMap, gl_TexCoord[0].st);

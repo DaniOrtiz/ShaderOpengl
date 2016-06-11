@@ -45,18 +45,24 @@ unsigned char* imagerelleno01 = NULL;
 static GLuint texrelleno02;
 unsigned char* imagerelleno02 = NULL;
 
+//Patron del piso
+static GLuint texpiso;
+unsigned char* imagepiso = NULL;
+
 //Variables para la intensidad de las luces
 //El texture.frag lanza error si coloco GLfloat
 float ambiental = 1.0;	// Valores en los que se pide iniciar el programa
 float central   = 1.0;	
 float relleno01 = 0.0;	// Al iniciar no se pueden reducir las luces de relleno (estan apagadas)
-float relleno02  = 0.0;
+float relleno02 = 0.0;
+float piso      = 0.0;
 
 //Variables para el color de las luces
 float colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
 float colorC[4] = {1.0,1.0,1.0,1.0};
 float colorR01[4] = {1.0,1.0,1.0,1.0};
 float colorR02[4] = {1.0,1.0,1.0,1.0};
+float colorP[4] = {1.0,1.0,1.0,1.0};
 
 int iheight, iwidth;
 
@@ -175,16 +181,29 @@ void init(){
    imagerelleno02 = glmReadPPM("baked_fill02.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagerelleno02);
 
+	// Piso
+   glGenTextures(1, &texpiso);
+   glBindTexture(GL_TEXTURE_2D, texpiso);
+
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+   imagepiso = glmReadPPM("baked_checker.ppm", &iwidth, &iheight);
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagepiso);
+
+
    shader = SM.loadfromFile("texture.vert","texture.frag"); // load (and compile, link) from file
   		  if (shader==0) 
 			  std::cout << "Error Loading, compiling or linking shader\n";
 
 }
 
-
-
 void Keyboard(unsigned char key, int x, int y){
-	switch (key){
+	switch (key){		
+	// ---------- INTENSIDAD LUCES ----------
+	// incrementa intensidad luz ambiental
 		case '1':
 			ambiental += 0.05;
 		break;
@@ -218,16 +237,13 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
-	// componente R
-		case 'e':
+		case 'e': // componente R
 			colorR01[0] += 0.05;
 		break;
-	// componente G
-		case 'r':
+		case 'r': // componente G
 			colorR01[1] += 0.05;
 		break;
-	// componente B
-		case 't':
+		case 't': // componente B
 			colorR01[2] += 0.05;
 		break;
 	// reducciones color luz relleno 01
@@ -292,12 +308,10 @@ void Keyboard(unsigned char key, int x, int y){
 			if (colorC[1] - 0.05 > 0.0) colorC[1] -= 0.05;
 		break;
 	// componente B
-		case ' ':
+		case ',':
 			if (colorC[2] - 0.05 > 0.0) colorC[2] -= 0.05;
 		break;
 
-	// ---------- INTENSIDAD LUCES ----------
-	// incrementa intensidad luz ambiental
 	
 	// ---------- FILTROS BILINEALES ----------
 	/*
@@ -404,18 +418,21 @@ void render(){
 	shader->setTexture("stexcentral", texcentral,1);
 	shader->setTexture("stexrelleno01", texrelleno01,2);
 	shader->setTexture("stexrelleno02", texrelleno02,3);
+	shader->setTexture("stexpiso", texpiso,4);
 
 	// Intensidad Luces
 	shader->setUniform1f("ambientalInt",ambiental);
 	shader->setUniform1f("centralInt",central);
 	shader->setUniform1f("relleno01Int",relleno01);
 	shader->setUniform1f("relleno02Int",relleno02);
+	shader->setUniform1f("pisoInt",piso);
 
 	// Color Luces
 	shader->setUniform4f("ambientalColor",colorA[0],colorA[1],colorA[2],colorA[3]);
 	shader->setUniform4f("centralColor",colorC[0],colorC[1],colorC[2],colorC[3]);
 	shader->setUniform4f("relleno01Color",colorR01[0],colorR01[1],colorR01[2],colorR01[3]);
 	shader->setUniform4f("relleno02Color",colorR02[0],colorR02[1],colorR02[2],colorR02[3]);
+	shader->setUniform4f("pisoColor",colorP[0],colorP[1],colorP[2],colorP[3]);
 
 
 	// Codigo para el mesh	
