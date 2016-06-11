@@ -12,11 +12,11 @@ uniform sampler2D stexrelleno02;
 uniform sampler2D stexpiso;
 
 // Intensidad Luces
-uniform float _ambientalInt;
-uniform float _centralInt;
-uniform float _relleno01Int;
-uniform float _relleno02Int;
-uniform float _pisoInt;
+uniform float ambientalInt;
+uniform float centralInt;
+uniform float relleno01Int;
+uniform float relleno02Int;
+uniform float pisoInt;
 
 // Color Luces
 uniform vec4 ambientalColor;
@@ -52,6 +52,7 @@ void main(void) {
 	vec4 cRelleno01;
 	vec4 cRelleno02;
 	vec4 cPiso;
+
 	vec4 auxAmbiental;
 	vec4 auxCentral;
 	vec4 auxRelleno01;
@@ -64,13 +65,14 @@ void main(void) {
 	cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
 	cPiso      = texture2D(stexpiso,gl_TexCoord[0].st);
 
-	auxAmbiental = cAmbiental * _ambientalInt * ambientalColor;
-	auxCentral   = cCentral * _centralInt * centralColor;
-	auxRelleno01 = cRelleno01 * _relleno01Int * relleno01Color;
-	auxRelleno02 = cRelleno02 * _relleno02Int * relleno02Color;
-	auxpiso      = cPiso * _pisoInt * pisoColor;
+	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
+	auxCentral   = cCentral * centralInt * centralColor;
+	auxRelleno01 = cRelleno01 * relleno01Int * relleno01Color;
+	auxRelleno02 = cRelleno02 * relleno02Int * relleno02Color;
+	auxPiso      = cPiso * pisoInt * pisoColor;
+	//auxpiso      = cPiso * pisoInt * pisoColor;
 	
-	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02 + auxpiso);
+	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02 + auxPiso);
 	gl_FragColor = cFinal ;
 
 	// filtro bilinear

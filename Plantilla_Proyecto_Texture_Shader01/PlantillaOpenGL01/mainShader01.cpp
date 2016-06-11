@@ -60,9 +60,9 @@ float piso      = 0.0;
 //Variables para el color de las luces
 float colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
 float colorC[4] = {1.0,1.0,1.0,1.0};
+float colorP[4] = {0.0,0.0,0.0,0.0};
 float colorR01[4] = {1.0,1.0,1.0,1.0};
 float colorR02[4] = {1.0,1.0,1.0,1.0};
-float colorP[4] = {1.0,1.0,1.0,1.0};
 
 int iheight, iwidth;
 
@@ -98,7 +98,6 @@ void ejesCoordenada() {
 
 					glVertex2f(0.2,i);
 					glVertex2f(-0.2,i);
-
 				}
 			}
 		}
@@ -114,9 +113,7 @@ void changeViewport(int w, int h) {
 	
 	float aspectratio;
 
-	if (h==0)
-		h=1;
-
+	if (h==0) h=1;
 	
    glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
    glMatrixMode (GL_PROJECTION);
@@ -132,7 +129,6 @@ void init(){
    glEnable(GL_LIGHT0);
    glEnable(GL_DEPTH_TEST);
    
-  
    // Cargando Textura
    glGenTextures(1, &texflat);
    glBindTexture(GL_TEXTURE_2D, texflat);
@@ -200,7 +196,17 @@ void init(){
 
 }
 
+/*
+char easytolower(char key){
+	if(in<='Z' && in>='A') return in-('Z'-'z');
+	return in;
+}
+*/
+
 void Keyboard(unsigned char key, int x, int y){
+
+	//key = easytolower(key);
+
 	switch (key){		
 	// ---------- INTENSIDAD LUCES ----------
 	// incrementa intensidad luz ambiental
@@ -321,16 +327,33 @@ void Keyboard(unsigned char key, int x, int y){
 	// desactivacion
 		case 'p':
 		break;
+		*/
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
+			piso = 1.0;
+			colorP[0] = 0.5;
+			colorP[1] = 0.5;
+			colorP[2] = 1;
 		break;
 		case '4':
+			piso = 1.0;
+			colorP[0] = 1;
+			colorP[1] = 0.0;
+			colorP[2] = 1;
 		break;
 		case '5':
+			piso = 1.0;
+			colorP[0] = 0.5;
+			colorP[1] = 1;
+			colorP[2] = 0.0;
 		break;
 		case '6':
+			piso = 1.0;
+			colorP[0] = 0.0;
+			colorP[1] = 1;
+			colorP[2] = 1;
 		break;
-	*/
+	
 		default:
 		break;
 	}
