@@ -25,6 +25,9 @@ uniform vec4 relleno01Color;
 uniform vec4 relleno02Color;
 uniform vec4 pisoColor;
 
+// Filtro
+uniform float filtroBilineal;
+
 // Algoritmo Filtro Bilineal
 vec4 texture2D_bilinear( sampler2D tex, vec2 uv )
 {
@@ -59,11 +62,21 @@ void main(void) {
 	vec4 auxRelleno02;
 	vec4 auxPiso;
 
-	cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
-	cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
-	cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
-	cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
-	cPiso      = texture2D(stexpiso,gl_TexCoord[0].st);
+
+	if (filtroBilineal == 1.0) {
+		cAmbiental = texture2D_bilinear(stexflat,gl_TexCoord[0].st);
+		cCentral   = texture2D_bilinear(stexcentral,gl_TexCoord[0].st);
+		cRelleno01 = texture2D_bilinear(stexrelleno01,gl_TexCoord[0].st);
+		cRelleno02 = texture2D_bilinear(stexrelleno02,gl_TexCoord[0].st);
+		cPiso      = texture2D_bilinear(stexpiso,gl_TexCoord[0].st);
+	}
+	else if (filtroBilineal == 0.0){
+		cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
+		cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
+		cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
+		cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
+		cPiso      = texture2D(stexpiso,gl_TexCoord[0].st);
+	}
 
 	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
 	auxCentral   = cCentral * centralInt * centralColor;
@@ -72,9 +85,6 @@ void main(void) {
 	auxPiso      = cPiso * pisoInt * pisoColor;
 	//auxpiso      = cPiso * pisoInt * pisoColor;
 	
-	cFinal = (auxAmbiental + auxPiso) * (auxCentral + auxRelleno01 + auxRelleno02 );
+	cFinal = auxAmbiental * (auxCentral + auxRelleno01 + auxRelleno02 + auxPiso);
 	gl_FragColor = cFinal ;
-
-	// filtro bilinear
-	// gl_FragColor = texture2D_bilinear( colorMap, gl_TexCoord[0].st);
 }

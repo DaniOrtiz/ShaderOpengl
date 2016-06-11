@@ -64,6 +64,9 @@ float colorP[4] = {0.0,0.0,0.0,0.0};
 float colorR01[4] = {1.0,1.0,1.0,1.0};
 float colorR02[4] = {1.0,1.0,1.0,1.0};
 
+//Filtro
+float filtro;
+
 int iheight, iwidth;
 
 
@@ -114,7 +117,7 @@ void changeViewport(int w, int h) {
 	float aspectratio;
 
 	if (h==0) h=1;
-
+	
    glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
@@ -239,7 +242,7 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// reduce intensidad luz central
 		case 'x':
-			if (central - 0.05 > 1.0) central -= 0.05;
+			if (central - 0.05 > 0.0) central -= 0.05;
 		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
@@ -320,14 +323,16 @@ void Keyboard(unsigned char key, int x, int y){
 
 	
 	// ---------- FILTROS BILINEALES ----------
-	/*
+	
 	// activacion
 		case 'o':
+			filtro = 1.0;
 		break;
 	// desactivacion
 		case 'p':
+			filtro = 0.0;
 		break;
-		*/
+		
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
 			piso = 1.0;
@@ -457,6 +462,8 @@ void render(){
 	shader->setUniform4f("relleno02Color",colorR02[0],colorR02[1],colorR02[2],colorR02[3]);
 	shader->setUniform4f("pisoColor",colorP[0],colorP[1],colorP[2],colorP[3]);
 
+	// Filtro Bilineal
+	shader->setUniform1f("filtroBilineal",filtro);
 
 	// Codigo para el mesh	
 	glEnable(GL_NORMALIZE);
