@@ -215,7 +215,7 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// reduce intensidad luz ambiental
 		case '2':
-			if (ambiental - 0.05 > 0.0) ambiental -= 0.05;
+			if (ambiental - 0.05 > 1.0) ambiental -= 0.05;
 		break;
 	// incrementa intensidad luz relleno 01
 		case 'q':
