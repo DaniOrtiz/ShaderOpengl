@@ -1,5 +1,3 @@
-// Cubica
-
 #include <stdlib.h>
 #include <conio.h>
 
@@ -63,8 +61,7 @@ float colorR02[4] = {1.0,1.0,1.0,1.0};
 
 int iheight, iwidth;
 
-//Filtro
-float filtro;
+bool filtro;
 
 void ejesCoordenada() {
 	
@@ -134,7 +131,7 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   	if( filtro == 1.0){
+   	if(filtro){
    		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
    	}else{
@@ -151,7 +148,7 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   	if( filtro == 1.0){
+   	if(filtro){
    		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
    	}else{
@@ -168,7 +165,7 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   	if( filtro == 1.0){
+   	if(filtro){
    		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
    	}else{
@@ -185,7 +182,7 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   	if( filtro == 1.0){
+   	if(filtro){
    		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
    	}else{
@@ -202,7 +199,7 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   if( filtro == 1.0){
+   if(filtro){
    		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
    	}else{
@@ -212,7 +209,6 @@ void init(){
 
    imagepiso = glmReadPPM("baked_checker.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagepiso);
-
 
    shader = SM.loadfromFile("texture.vert","texture.frag"); // load (and compile, link) from file
   		  if (shader==0) 
@@ -263,7 +259,7 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// reduce intensidad luz central
 		case 'x':
-			if (central - 0.05 > 0.0) central -= 0.05;
+			if (central - 0.05 > 1.0) central -= 0.05;
 		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
@@ -344,33 +340,34 @@ void Keyboard(unsigned char key, int x, int y){
 	// ---------- FILTROS BILINEALES ----------
 	// activacion
 		case 'o':
-			filtro = 1.0;
+			filtro = true;
 		break;
 	// desactivacion
 		case 'p':
-			filtro = 0.0;
+			filtro = false;
 		break;
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
 			colorP[0] = 0.5;
 			colorP[1] = 0.5;
-			colorP[2] = 1;
+			colorP[2] = 1.0;
 		break;
 		case '4':
-			colorP[0] = 1;
+			colorP[0] = 1.0;
 			colorP[1] = 0.0;
-			colorP[2] = 1;
+			colorP[2] = 1.0;
 		break;
 		case '5':
 			colorP[0] = 0.5;
-			colorP[1] = 1;
+			colorP[1] = 1.0;
 			colorP[2] = 0.0;
 		break;
 		case '6':
 			colorP[0] = 0.0;
-			colorP[1] = 1;
-			colorP[2] = 1;
+			colorP[1] = 1.0;
+			colorP[2] = 1.0;
 		break;
+		/*
 		case '7':
 			colorP[0] = 0.0;
 			colorP[1] = 0.0;
@@ -382,8 +379,13 @@ void Keyboard(unsigned char key, int x, int y){
 			central   = 1.0;	
 			relleno01 = 0.0;	
 			relleno02 = 0.0;
+			colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
+			colorC[4] = {1.0,1.0,1.0,1.0};
+			colorP[4] = {0.0,0.0,0.0,0.0};
+			colorR01[4] = {1.0,1.0,1.0,1.0};
+			colorR02[4] = {1.0,1.0,1.0,1.0};
 		break;
-
+*/
 		default:
 		break;
 	}

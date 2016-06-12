@@ -1,9 +1,4 @@
-// Definiciones para el Filtro Bilineal
-#define texWidth 960.0 //600
-#define texHeight 540.0	//800
-#define texel_s_x 0.1 / texWidth
-#define texel_s_y 0.1 / texHeight
-
+#version 130
 // Texturas
 uniform sampler2D stexflat;
 uniform sampler2D stexcentral;
@@ -25,7 +20,7 @@ uniform vec4 relleno02Color;
 uniform vec4 pisoColor;
 
 // Filtro
-uniform float filtroBilineal;
+uniform bool filtroBilineal;
 
 // Algoritmo Filtro Bilineal
 vec4 texture2D_bilinear( sampler2D tex, vec2 uv )
@@ -67,34 +62,32 @@ void main(void) {
 	vec4 auxPiso;
 	vec4 aux;
 
-	if (filtroBilineal == 1.0) {
+	if (filtroBilineal) {
 		cAmbiental = texture2D_bilinear(stexflat,gl_TexCoord[0].st);
 		cCentral   = texture2D_bilinear(stexcentral,gl_TexCoord[0].st);
 		cRelleno01 = texture2D_bilinear(stexrelleno01,gl_TexCoord[0].st);
 		cRelleno02 = texture2D_bilinear(stexrelleno02,gl_TexCoord[0].st);
-	}
-	else if (filtroBilineal == 0.0){
+	}else{
 		cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
 		cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
 		cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
 		cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
 	}
 
-	cPiso      = texture2D(stexpiso,gl_TexCoord[0].st);
-
-	auxCentral = cCentral * centralInt * centralColor;
+	auxCentral   = cCentral * centralInt * centralColor;
 	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
-	auxRelleno = (cRelleno02 * relleno02Int * relleno02Color)
-				+ (cRelleno01 * relleno01Int * relleno01Color);
+	auxRelleno   = (cRelleno02 * relleno02Int * relleno02Color)
+				 + (cRelleno01 * relleno01Int * relleno01Color);
 
-	auxPiso    = cPiso * pisoColor;
+	cPiso   = texture2D(stexpiso,gl_TexCoord[0].st);
+	auxPiso = cPiso * pisoColor;
 
-	aux = mix(auxCentral , cPiso, 1.0 ) * pisoColor ; 
+	//aux = mix(auxCentral , cPiso, 1.0 ) * pisoColor ; 
 
 	//cFinal = (auxAmbiental + aux) * (auxCentral + auxRelleno);
 
-	cFinal = auxAmbiental * (auxCentral + auxRelleno);
+	cFinal = (auxAmbiental +  auxPiso) * (auxCentral + auxRelleno);
 
-	gl_FragColor =  cFinal + aux ;
+	gl_FragColor =  cFinal  ;
 
 }
