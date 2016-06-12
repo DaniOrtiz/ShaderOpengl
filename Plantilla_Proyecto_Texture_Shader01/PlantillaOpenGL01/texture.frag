@@ -21,6 +21,7 @@ uniform vec4 pisoColor;
 
 // Filtro
 uniform bool filtroBilineal;
+uniform bool pisoAct;
 
 // Algoritmo Filtro Bilineal
 vec4 texture2D_bilinear( sampler2D tex, vec2 uv )
@@ -74,20 +75,18 @@ void main(void) {
 		cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
 	}
 
+	cPiso   = texture2D(stexpiso,gl_TexCoord[0].st);
+
+	if (pisoAct){
+		auxPiso = mix(cAmbiental, pisoColor,cPiso) ;
+	} else {
+		auxPiso = cAmbiental;
+	}
+
+	auxAmbiental = auxPiso * ambientalInt * ambientalColor;
 	auxCentral   = cCentral * centralInt * centralColor;
-	auxAmbiental = cAmbiental * ambientalInt * ambientalColor;
 	auxRelleno   = (cRelleno02 * relleno02Int * relleno02Color)
 				 + (cRelleno01 * relleno01Int * relleno01Color);
 
-	cPiso   = texture2D(stexpiso,gl_TexCoord[0].st);
-	auxPiso = cPiso * pisoColor;
-
-	//aux = mix(auxCentral , cPiso, 1.0 ) * pisoColor ; 
-
-	//cFinal = (auxAmbiental + aux) * (auxCentral + auxRelleno);
-
-	cFinal = (auxAmbiental +  auxPiso) * (auxCentral + auxRelleno);
-
-	gl_FragColor =  cFinal  ;
-
+	gl_FragColor = auxAmbiental * (auxCentral + auxRelleno);
 }

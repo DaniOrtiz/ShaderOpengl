@@ -55,13 +55,14 @@ float relleno02 = 0.0;
 //Variables para el color de las luces
 float colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
 float colorC[4] = {1.0,1.0,1.0,1.0};
-float colorP[4] = {0.0,0.0,0.0,0.0};
+float colorP[4] = {1.0,1.0,1.0,1.0};
 float colorR01[4] = {1.0,1.0,1.0,1.0};
 float colorR02[4] = {1.0,1.0,1.0,1.0};
 
 int iheight, iwidth;
 
 bool filtro;
+bool piso;
 
 void ejesCoordenada() {
 	
@@ -348,44 +349,56 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
+			piso = true;
 			colorP[0] = 0.5;
 			colorP[1] = 0.5;
 			colorP[2] = 1.0;
 		break;
 		case '4':
+			piso = true;
 			colorP[0] = 1.0;
 			colorP[1] = 0.0;
 			colorP[2] = 1.0;
 		break;
 		case '5':
+			piso = true;
 			colorP[0] = 0.5;
 			colorP[1] = 1.0;
 			colorP[2] = 0.0;
 		break;
 		case '6':
+			piso = true;
 			colorP[0] = 0.0;
 			colorP[1] = 1.0;
 			colorP[2] = 1.0;
 		break;
-		/*
 		case '7':
-			colorP[0] = 0.0;
-			colorP[1] = 0.0;
-			colorP[2] = 0.0;
-			colorP[3] = 0.0;
+			piso = false;
 		break;	
 		case ' ':
+			piso = false;
+			
 			ambiental = 1.0;	
 			central   = 1.0;	
 			relleno01 = 0.0;	
 			relleno02 = 0.0;
-			colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
-			colorC[4] = {1.0,1.0,1.0,1.0};
-			colorP[4] = {0.0,0.0,0.0,0.0};
-			colorR01[4] = {1.0,1.0,1.0,1.0};
-			colorR02[4] = {1.0,1.0,1.0,1.0};
+			
+			colorR02[0] = 1.0;
+			colorR02[1] = 1.0;
+			colorR02[2] = 1.0;
+
+			colorR01[0] = 1.0;
+			colorR01[1] = 1.0;
+			colorR01[2] = 1.0;
+
+			colorC[0] = 1.0;
+			colorC[1] = 1.0;
+			colorC[2] = 1.0;
+
+			colorA[0] = 1.0;
+			colorA[1] = 1.0;
+			colorA[2] = 1.0;
 		break;
-*/
 		default:
 		break;
 	}
@@ -489,6 +502,9 @@ void render(){
 
 	// Filtro Bilineal
 	shader->setUniform1f("filtroBilineal",filtro);
+
+	//piso
+	shader->setUniform1f("pisoAct",piso);
 
 
 	// Codigo para el mesh	
