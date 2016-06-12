@@ -68,14 +68,14 @@ void main(void) {
 		cCentral   = texture2D_bilinear(stexcentral,gl_TexCoord[0].st);
 		cRelleno01 = texture2D_bilinear(stexrelleno01,gl_TexCoord[0].st);
 		cRelleno02 = texture2D_bilinear(stexrelleno02,gl_TexCoord[0].st);
+		cPiso   = texture2D_bilinear(stexpiso,gl_TexCoord[0].st);
 	}else{
 		cAmbiental = texture2D(stexflat,gl_TexCoord[0].st);
 		cCentral   = texture2D(stexcentral,gl_TexCoord[0].st);
 		cRelleno01 = texture2D(stexrelleno01,gl_TexCoord[0].st);
 		cRelleno02 = texture2D(stexrelleno02,gl_TexCoord[0].st);
+		cPiso   = texture2D(stexpiso,gl_TexCoord[0].st);
 	}
-
-	cPiso   = texture2D(stexpiso,gl_TexCoord[0].st);
 
 	if (pisoAct){
 		auxPiso = mix(cAmbiental, pisoColor,cPiso) ;
