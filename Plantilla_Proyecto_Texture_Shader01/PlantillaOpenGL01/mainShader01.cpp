@@ -22,12 +22,10 @@ aiVector3D scene_min, scene_max, scene_center;
 #define aisgl_min(x,y) (x<y?x:y)
 #define aisgl_max(x,y) (y>x?y:x)
 
-
 using namespace std;
 
 cwc::glShaderManager SM;
 cwc::glShader *shader;
-
 
 //Textures
 static GLuint texflat;
@@ -55,7 +53,6 @@ float ambiental = 1.0;	// Valores en los que se pide iniciar el programa
 float central   = 1.0;	
 float relleno01 = 0.0;	// Al iniciar no se pueden reducir las luces de relleno (estan apagadas)
 float relleno02 = 0.0;
-float piso      = 0.0;
 
 //Variables para el color de las luces
 float colorA[4] = {1.0,1.0,1.0,1.0}; // Para RGB solo necesito 3 pero para el texture.frag 4
@@ -137,8 +134,13 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   	if( filtro == 1.0){
+   		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
+   	}else{
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	
+   	}
 
    imageflat = glmReadPPM("baked_flat.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageflat);
@@ -149,8 +151,13 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   	if( filtro == 1.0){
+   		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
+   	}else{
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	}
 
    imagecentral = glmReadPPM("baked_keyrabbit.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagecentral);
@@ -161,8 +168,13 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   	if( filtro == 1.0){
+   		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
+   	}else{
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   	}
 
    imagerelleno01 = glmReadPPM("baked_fill01.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagerelleno01);
@@ -173,8 +185,13 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   	if( filtro == 1.0){
+   		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
+   	}else{
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	}
 
    imagerelleno02 = glmReadPPM("baked_fill02.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagerelleno02);
@@ -185,8 +202,13 @@ void init(){
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+   if( filtro == 1.0){
+   		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   	
+   	}else{
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	}
 
    imagepiso = glmReadPPM("baked_checker.ppm", &iwidth, &iheight);
    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, iwidth, iheight, 0, GL_RGB, GL_UNSIGNED_BYTE, imagepiso);
@@ -241,7 +263,7 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// reduce intensidad luz central
 		case 'x':
-			if (central - 0.05 > 1.0) central -= 0.05;
+			if (central - 0.05 > 0.0) central -= 0.05;
 		break;
 	// ---------- COLOR LUCES ----------
 	// incrementos color luz relleno 01
@@ -319,10 +341,7 @@ void Keyboard(unsigned char key, int x, int y){
 		case ',':
 			if (colorC[2] - 0.05 > 0.0) colorC[2] -= 0.05;
 		break;
-
-	
 	// ---------- FILTROS BILINEALES ----------
-
 	// activacion
 		case 'o':
 			filtro = 1.0;
@@ -333,40 +352,36 @@ void Keyboard(unsigned char key, int x, int y){
 		break;
 	// ---------- COLORES PATRON PISO ----------
 		case '3':
-			piso = 1.0;
 			colorP[0] = 0.5;
 			colorP[1] = 0.5;
 			colorP[2] = 1;
 		break;
 		case '4':
-			piso = 1.0;
 			colorP[0] = 1;
 			colorP[1] = 0.0;
 			colorP[2] = 1;
 		break;
 		case '5':
-			piso = 1.0;
 			colorP[0] = 0.5;
 			colorP[1] = 1;
 			colorP[2] = 0.0;
 		break;
 		case '6':
-			piso = 1.0;
 			colorP[0] = 0.0;
 			colorP[1] = 1;
 			colorP[2] = 1;
 		break;
 		case '7':
-			piso = 0.0;
-		break;
-	
+			colorP[0] = 0.0;
+			colorP[1] = 0.0;
+			colorP[2] = 0.0;
+			colorP[3] = 0.0;
+		break;	
 		case ' ':
 			ambiental = 1.0;	
 			central   = 1.0;	
 			relleno01 = 0.0;	
 			relleno02 = 0.0;
-			piso      = 0.0;
-
 		break;
 
 		default:
@@ -445,8 +460,7 @@ void render(){
 	
 	glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable( GL_LINE_SMOOTH );	
-
-			
+		
 	glPushMatrix();
 
 	if (shader) shader->begin();
@@ -463,7 +477,6 @@ void render(){
 	shader->setUniform1f("centralInt",central);
 	shader->setUniform1f("relleno01Int",relleno01);
 	shader->setUniform1f("relleno02Int",relleno02);
-	shader->setUniform1f("pisoInt",piso);
 
 	// Color Luces
 	shader->setUniform4f("ambientalColor",colorA[0],colorA[1],colorA[2],colorA[3]);
@@ -494,15 +507,6 @@ void render(){
 	
 	glPopMatrix();
 	
-	
-	/*
-	glPushMatrix();
-	glLoadIdentity();	
-	glTranslatef(1.1, 0.5, -3.0);
-	glutSolidSphere(0.2f,30,30);
-	glPopMatrix();*/
-	 
-
 	if (shader) shader->end();
 	
 	glDisable(GL_BLEND);
@@ -581,7 +585,6 @@ int main (int argc, char** argv) {
 
 	glutCreateWindow("Test Opengl");
 
-
 	// Codigo para cargar la geometria usando ASSIMP
 
 	aiLogStream stream;
@@ -603,8 +606,6 @@ int main (int argc, char** argv) {
 	
 	
 	loadasset( "escenario_proyecto01.obj");
-
-
 
 	init ();
 
